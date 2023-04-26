@@ -14,7 +14,12 @@ public class FormFila extends javax.swing.JFrame {
     int x = 0;
     
     void prox(){
-        txtProx.setText("Próximo:"+minhaDeque.getFirst().getNome());
+        
+        if(!minhaDeque.isEmpty())
+            txtProx.setText("Próximo:"+minhaDeque.getFirst().getNome());
+        else
+            txtProx.setText("Fila Vazia !");
+        
     }
     
     void limpaCampo(){
@@ -76,7 +81,7 @@ public class FormFila extends javax.swing.JFrame {
 
         txtProx.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         txtProx.setForeground(new java.awt.Color(255, 255, 255));
-        txtProx.setText("Prox:");
+        txtProx.setText("Fila Vazia !");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,6 +176,7 @@ public class FormFila extends javax.swing.JFrame {
         listFilaDupla.setColumns(20);
         listFilaDupla.setFont(new java.awt.Font("Segoe UI Light", 0, 24)); // NOI18N
         listFilaDupla.setRows(5);
+        listFilaDupla.setText("Fila Vazia !");
         listFilaDupla.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "DEQUE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Light", 0, 24))); // NOI18N
         jScrollPane1.setViewportView(listFilaDupla);
 
@@ -261,27 +267,38 @@ public class FormFila extends javax.swing.JFrame {
 
     private void btnAddFirstActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFirstActionPerformed
        
-       Pessoa novaPessoa = new Pessoa();
-       novaPessoa.setNome(txtNome.getText());
-       novaPessoa.setIdade(Integer.parseInt(txtIdade.getText()));
-       novaPessoa.setRg(txtRG.getText());
+        if(!txtNome.getText().equals("") && !txtRG.getText().equals("") && !txtIdade.getText().equals("")){
+           
+            Pessoa novaPessoa = new Pessoa();
+            novaPessoa.setNome(txtNome.getText());
+            novaPessoa.setIdade(Integer.parseInt(txtIdade.getText()));
+            novaPessoa.setRg(txtRG.getText());
+            minhaDeque.addFirst(novaPessoa);
+            limpaCampo();
        
-       minhaDeque.addFirst(novaPessoa);
-       mostra();
-       limpaCampo();
+        }else
+            JOptionPane.showMessageDialog(null, "Preencha Todos os Campos !");
+       
+        mostra();
        
     }//GEN-LAST:event_btnAddFirstActionPerformed
 
     private void btnAddLastActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddLastActionPerformed
-
-       Pessoa novaPessoa = new Pessoa();
-       novaPessoa.setNome(txtNome.getText());
-       novaPessoa.setIdade(Integer.parseInt(txtIdade.getText()));
-       novaPessoa.setRg(txtRG.getText());
+        
+        if(!txtNome.getText().equals("") && !txtRG.getText().equals("") && !txtIdade.getText().equals("")){
+            
+            Pessoa novaPessoa = new Pessoa();
+            novaPessoa.setNome(txtNome.getText());
+            novaPessoa.setIdade(Integer.parseInt(txtIdade.getText()));
+            novaPessoa.setRg(txtRG.getText());
+            minhaDeque.addLast(novaPessoa);
+            limpaCampo();
        
-       minhaDeque.addLast(novaPessoa);
-       mostra();
-       limpaCampo();
+        }else
+            JOptionPane.showMessageDialog(null, "Preencha Todos os Campos!");
+       
+        mostra();
+      
     }//GEN-LAST:event_btnAddLastActionPerformed
 
     private void btnMostraInvertidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostraInvertidaActionPerformed
@@ -303,7 +320,6 @@ public class FormFila extends javax.swing.JFrame {
         if(!minhaDeque.isEmpty()){
             Pessoa p = minhaDeque.removeFirst();
             JOptionPane.showMessageDialog(null, p.getNome()+" foi atendido !");
-            prox();
         }else{
             JOptionPane.showMessageDialog(null, "Fila Vazia!");
         }
@@ -314,8 +330,7 @@ public class FormFila extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!minhaDeque.isEmpty()){
             Pessoa p = minhaDeque.removeLast();
-            JOptionPane.showMessageDialog(null, p.getNome()+" saiu da fila atendido !");
-            prox();
+            JOptionPane.showMessageDialog(null, p.getNome()+" saiu da fila de atendimento !");
         }else{
             JOptionPane.showMessageDialog(null, "Fila Vazia!");
         }
@@ -351,6 +366,7 @@ public class FormFila extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new FormFila().setVisible(true);
+              
             }
         });
     }
